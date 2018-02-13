@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" /> 
+<meta name="description" content="" />
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="826432433041-qvi9m4mdmrgru7a56d266507ho2s07en.apps.googleusercontent.com">
+<link href="/css/main.css" rel="stylesheet" />
+
+<% if(typeof css !== "undefined"){ %>
+	<% for(var i in css) { %>
+		<% if (css[i].match(/\.css$/g)) { %>
+			<link rel="stylesheet" href="//<%=css[i];%>" />
+		<% } else { %>
+			<link rel="stylesheet" href="/css/<%=css[i];%>.css" />
+		<% } %>
+	<% } %>
+<% } %>
+<% if(typeof jquery !== "undefined") { %>
+	<script src="https://<%=jquery%>" crossorigin="anonymous"></script>
+<% } else { %>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<% } %>
+<script type="text/javascript">
+	window.fb_login_cb = []; 
+	window.fb_logout_cb = []; 
+</script>
+</head>
+<body>
+<% include ../partials/nav %>
+<div class="content">

@@ -1,0 +1,70 @@
+<script type="text/javascript">
+
+  function statusChangeCallback(response) {
+      testAPI(response);
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '509558469401143',
+            cookie     : true,  // enable cookies to allow the server to access 
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.8' // use graph api version 2.8
+          });
+
+          FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+          });
+
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function testAPI(r) {
+        if(r.status === "connected") {
+		for(var  i = 0; i < window.fb_login_cb.length; i++) {
+			window.fb_login_cb[i](r);
+		}
+
+               $('.fb-login-button').hide();
+                sendFacebookLogin({id : r.authResponse.userID, accessToken : r.authResponse.accessToken});
+        } else {
+		$('.fb-login-button').show();
+                for(var  i = 0; i < window.fb_logout_cb.length; i++) {
+                        window.fb_logout_cb[i](r);
+                }
+
+		$.get('/facebook-logout', {}, function(response){});		
+	}
+
+        FB.api('/me?fields=id,email,name', function(response) {
+                console.log(response);
+        });
+  }
+
+function sendFacebookLogin(d) {
+        var data = {
+                id: d.id,
+                token: d.accessToken
+        };
+        
+        $.post('/facebook-login', data, function(response){
+		window.location.href = "/s3graph";
+        });
+}
+
+</script>
+
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>

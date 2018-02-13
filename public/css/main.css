@@ -1,0 +1,217 @@
+body {
+	font-family: Helvetica;
+	color: black;
+	font-size: 14px;
+}
+
+select {
+	font-size: 1em;
+}
+
+button {
+	border-radius: 5px;
+	font-size: 2em;
+}
+
+.copyright {
+	position: absolute;
+	bottom: 5px;
+	width: 100%;
+	text-align: center;
+	margin-left: -4px;
+}
+
+select[name=msgtype] {
+	margin-top: 20px;
+	margin-bottom: 20px;
+    border: 1px solid lightseagreen;
+    border-radius: 20px;
+    padding: 10px 20px 10px 10px;
+	background-color: white;
+	color: grey;
+}
+svg { 
+	float: left;
+	transform: scale(0.85);
+}
+svg line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+  position: relative;
+  z-index: 20;
+}
+
+svg circle {
+ 
+  stroke: #000;
+  stroke-width: 1.5px;
+  position: relative;
+  z-index: 100;
+  transition: transform 2s;
+}
+svg .circles {
+  cursor: pointer;
+}
+
+.content {
+	text-align: center;
+}
+.submit {
+	width: 200px;
+	height: 50px;
+	margin-top: 20px;
+    background-color: orangered;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+	font-family: monospace;
+}
+
+input[name=msg] {
+	width: 250px;
+	height: 30px;
+	border: none;
+	border-bottom: 1px solid lightseagreen;
+	text-align: center;
+	padding: 3px;
+	font-size: 14px;
+	margin: 20px 0px 20px 0px;
+}
+
+.sentence-pending-results-wrapper {
+    display: inline-block;
+    width: auto;
+    height: 200px;
+    overflow-y: scroll;
+    display: inline-block;
+    width: auto;
+    height: 200px;
+    overflow-y: scroll;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: floralwhite;
+}
+
+.sentence-pending-results-wrapper td {
+	text-align: center;
+	text-transform: capitalize;
+}
+.sentence-pending-results-wrapper table {
+	min-width: 325px;
+}
+.success-msg {
+	display: inline-block;
+	width: 250px;
+	font-size: 15px;
+	padding: 20px 0 20px 0;
+	color: lightseagreen;
+}
+h3.sentence-header {
+	font-size: 18px;
+	font-weight: 500;
+	color: orangered;
+	padding: 20px 0px 0px 0px;
+	
+}
+	
+td.sentence-msg {
+	text-align: left;
+	padding: 0px 0px 10px 0px
+}
+
+td.sentence-msg em {
+	color: lightslategray;
+}
+
+.sentence-results-wrapper {
+	background-color: antiquewhite;
+	border-radius: 5px;
+}
+.tone-anger {
+	color: red;
+}
+.tone-disgust {
+	color: darkorange;
+}
+
+.tone-fear {
+	color: purple;
+}
+
+.tone-joy {
+	color: gold;
+}
+
+.tone-sadness {
+	color: dimgrey;
+}
+td.sentence-separator {
+	color: maroon;
+}
+.rgraph_domtext_wrapper > span {
+	color: dimgrey !important;
+}
+.rgraph_domtext_wrapper > span[id='175_12_Sentigraph_Index_si__cvs'] {
+	color: orangered !important;
+	font-weight: 500 !important;
+	top: -10px !important;
+}
+
+#circle-results-chart {
+	height: 500px;
+	width: 100%;
+	max-width: 500px;
+	margin-left: 5%;
+	text-align: center;
+	float: left;
+	position: relative;
+	height: 500px;
+	background-color: antiquewhite;
+}
+
+#circle-results-chart .sentence-pending-results-wrapper {
+	height: 600px
+}
+
+.graph-explanation {
+	color: lightseagreen;
+	font-weight: 500;
+	text-align: center;
+	padding-top:20px;
+}
+
+.copy-to-clipboard {
+	padding: 8px;
+	border: 1px solid grey;
+	cursor: pointer;
+	border-radius: 5px;
+}
+@media only screen and (min-device-width: 300px) and (max-device-width: 667px) and (orientation : portrait) { 
+	.sentence-pending-results-wrapper table {
+		max-width: 375px;
+	}
+
+	svg { margin-left: -175px; }
+
+	#circle-results-chart { 
+		margin-left: 0px;  
+		top: -100px;
+		height: 400px;
+		margin-top: 0px;
+	}
+
+	#circle-results-chart .sentence-pending-results-wrapper {
+		height: 400px;
+		max-width: 355px;
+	}
+	
+	td.sentence-msg > div {
+		width: 335px;
+		overflow: hidden;
+	}
+}
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 400px) and (orientation : portrait) {
+
+}

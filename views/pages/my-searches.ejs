@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+<% include ../partials/facebook %>
+
+<script type="text/javascript">
+	var obj = <%-JSON.stringify(data)%>,
+		q1 = null, q2 = null;
+
+	for(var hashtag in obj) {
+		if(q1 === null) {
+			q1 = obj[hashtag];
+			break;
+		}
+	}
+
+</script>
+
+<center>
+<div>
+<select name="save_hashtags">
+	<option value="">Select a Hashtag</option>
+	<% for (var hashtag in data) { %>
+		<option value="<%=hashtag;%>"><%=hashtag;%></option>
+	<% } %>
+</select>
+</div>
+
+<br><br><br>
+<div id="chart-wrapper"></div>
+<br><br>
+<div id="hashtag-results-wrapper"></div>
+</center>
+
+<% include ../partials/footer %>

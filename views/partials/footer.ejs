@@ -1,0 +1,16 @@
+</div>
+
+<% if(typeof scripts !== "undefined") { %>
+	<% for (var i in scripts) { %>
+		<% if (scripts[i].match(/^https?:.*$/g)) { %>	
+			<script type="text/javascript" src="<%=scripts[i]%>"></script>
+		<% } else if(!scripts[i].match(/\.js$/g)) { %>
+			<script type="text/javascript" src="/scripts/<%=scripts[i]%>.js"></script>
+		<% } else { %>
+			<script type="text/javascript" src="//<%=scripts[i]%>"></script>
+		<% } %>
+	<% } %>
+<% } %>
+
+</body>
+</html>

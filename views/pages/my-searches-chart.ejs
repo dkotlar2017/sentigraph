@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+<script type="text/javascript">
+	var obj = <%-JSON.stringify(data)%>,
+		q1 = null, q2 = null;
+
+	q1 = obj;//.map(function(item) { return item.q * 10; });
+
+</script>
+
+<center>
+<div style="transform: rotate(270deg) translate(-130px,-180px); color: dimgrey;">Distance From Joy</div>
+<canvas id="cvs" width="350" height="250">[No canvas support]</canvas>
+
+</center>
+<% include ../partials/footer %>

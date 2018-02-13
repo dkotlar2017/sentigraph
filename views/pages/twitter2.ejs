@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<% include ../partials/facebook %>
+
+<header class="twitter-page-header">S<i>3</i>ntigrap<b>H</b></header>
+<div class="twitter-page-subheader">Monitoring the pulse of Twitter's network.</div>
+
+<div class="twitter-form-wrapper">
+<form action="/get-twitter-hashtag-data" method="post" onsubmit="return sendTwitterHashtag()">
+	<div>
+		<input name="hashtag" placeholder="hashtag" autocomplete="off" maxlength="140" type="text" required />&nbsp;<img src="/img/add_green.png" class="save-hashtag-img" /><img src="/img/ps-plus-icon-check.png" class="check-save-img" />	
+	</div>
+	<div>
+		<button type="submit" value="save" class="submit">Graph</button>		
+	</div>
+</form>
+</div>
+
+<div class="ajax-loader">
+	<img src="/img/ajax-loader.gif" />
+</div>
+<div class="sentence-results-wrapper">
+</div>
+<div class="grad-scale grad-scale-bar"></div>
+<div class="grad-scale grad-scale-pointer"><img src="/img/point-up.png" /></div>
+
+<div id="guage-chart" class="guage-chart">
+
+</div>
+<% include ../partials/footer %>

@@ -1,0 +1,94 @@
+<% include ../partials/header %>
+<div>
+
+<% if(typeof sentence_added !== "undefined") { %>
+	<strong class="success-msg">Your thought has been added, it will be used in the next calculation of the sentigraph index which will be inserted in the blockchain</strong>
+<% } %>
+<form action="/store-sentences" method="post">
+	<div>
+		<select name="msgtype">
+			<option value="sentence">Write Your Own Thoughts</option>
+			<option value="twitter">Add a Hashtag</option>
+		</select>
+	</div>
+	<div>
+		<input name="msg" placeholder="Please write your sentence" autocomplete="off" maxlength="140" type="text" required />	
+	</div>
+	<div>
+		<button type="submit" value="save" class="submit">Graph</button>		
+	</div>
+</form>
+</div>
+<div class="sentence-results-wrapper">
+<center>
+	<% if(sentences.length > 0) { %>
+	<h3 class="sentence-header">Your thoughts</h3>
+	<div class="sentence-pending-results-wrapper">
+	<table cellpadding="0" cellspacing="4" border="0">
+	<% for(var i = 0; i < sentences.length; i++) { %>
+	<% if(i > 0) { %>
+	<tr>
+		<td class="sentence-separator" colspan="5">--------------------</td>
+	</tr>
+	<% } %>
+	<tr>
+		<td class="sentence-msg" colspan="5"><em><%=sentences[i].text; %></em></td>
+	</tr>
+		<% if (typeof sentences[i].emotion_tone !== "undefined" && sentences[i].emotion_tone !== null) { %>
+		<tr>
+			<% for(var j = 0; j < sentences[i].emotion_tone.length; j++) { %>
+				<td><% for(var k in sentences[i].emotion_tone[j]) { %> <span class="tone-<%=k%>"><%=k;%></span> 
+				<br><%=Math.round(sentences[i].emotion_tone[j][k] * 100); %>%<% } %></td>
+			<% } %>			
+		</tr>
+		<% } %>
+	<% } %>
+	</table>
+	</div>
+	<br>
+	<% } %>
+
+	<% if(pending.length > 0) { %>
+	<h3 class="sentence-header">Your thoughts (pending...)</h3>
+	<div class="sentence-pending-results-wrapper">
+        <table cellpadding="0" cellspacing="4" border="0">
+        <% for(var i = 0; i < pending.length; i++) { %>
+        <% if(i > 0) { %>
+        <tr>
+                <td  class="sentence-separator" colspan="5">--------------------</td>
+        </tr>
+        <% } %>
+        <tr>
+                <td class="sentence-msg" colspan="5"><em><%=pending[i].toString(); %></em></td>
+        </tr>
+        <tr>
+			<td> <span class="tone-anger">anger</span> <br>Pending</td>
+			<td> <span class="tone-disgust">disgust</span><br>Pending</td>
+			<td> <span class="tone-fear">fear</span> <br>Pending</td>
+			<td> <span class="tone-joy">joy</span> <br>Pending</td>
+			<td> <span class="tone-sadness">sadness</span> <br>Pending</td>
+        </tr>
+        <% } %>
+        </table>
+        </div>
+
+	<% } %>
+
+<br><br><br>
+<div style="transform: rotate(270deg) translate(-130px,-180px); color: dimgrey;">Distance From Joy</div>
+<canvas id="cvs" width="350" height="250">[No canvas support]</canvas>
+<div class="" style="color: dimgrey;"">Hours of the Day<br><i style="background-color: red;
+    padding: 0px 5px 0px 5px;
+    border-radius: 25px;
+    font-size: 11px;">&nbsp;</i> am <i style="background-color: lightgreen;
+    padding: 0px 5px 0px 5px;
+    border-radius: 25px;
+    font-size: 11px;">&nbsp;</i> pm</div>
+</center>
+<br>
+</div>
+<script type="text/javascript">
+	var q1 = [<%=q.slice(0,12).join(',') %>],
+		q2 = [<%=q.slice(12,24).join(',') %>];
+</script>
+<% include ../partials/footer %>

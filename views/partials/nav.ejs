@@ -1,0 +1,132 @@
+<style>
+#navigation {
+	list-style-type: none;
+	clear: both;
+	overflow: hidden;
+	transition: none;
+	display: inline-block;
+}
+.navigation-to-left {
+	margin-left: 0px;
+}
+
+#navigation-wrapper {
+	width: auto;
+	font-family: monospace;
+	display: none;
+	text-align: center;
+}
+
+#navigation li {
+	float: left;
+	padding: 0px 10px 0px 10px;
+	font-weight: bold;
+	background-color: transparent;
+}
+
+#navigation li a {
+	text-decoration: none;
+	color: black;
+}
+
+#nav-button {
+	font-weight: bold;
+	font-size: 30px;
+	width: auto;
+	padding: 5px 10px 1px 10px;
+	border: 0px solid black;
+	background: lightgrey;
+	border-radius: 5px;
+	display: inline-block;
+	cursor: pointer;	
+	display: none;
+	float: right;
+	margin-right: 5px;
+}
+
+.nav-separater {
+	display: block;
+}
+
+@media only screen and (max-width: 500px) { 
+	#nav-button {
+		display: inline-block;
+	}
+	#nav-button img {
+		max-width: 25px;
+	}
+
+	#navigation-wrapper {
+		max-width: 100%;
+		font-size: 20px;
+		position: relative;
+		z-index: 9999;
+		background-color: antiquewhite;
+		text-align: left;
+	}
+
+	#navigation {
+		transition: 1s margin-left;
+		margin-top: 0px;
+		position: fixed;
+		z-index: 9999;
+		background-color: darkorange;
+		margin-top: 5px;
+		margin-right: 5px;
+		opacity: 0.9
+	}
+
+	.navigation-to-left {
+		margin-left: -4096px;
+	}
+
+	#navigation li {
+		width: 85%;
+		margin-top: 5px;
+		padding: 10px;	
+		text-align: center;
+		font-size: 15px;	
+	}
+
+	#navigation li a {
+	}
+	
+	.nav-separater {
+		display: none;
+	}
+}
+</style>
+
+<div id="navigation-wrapper">
+<div id="nav-button"><img src="/img/hamburger_icon.svg.png" /></div>
+<div class="clear" style="clear: both;"></div>
+<ul id="navigation" class="navigation-to-left">
+        <li><a href="/s3graph2">home</a></li>
+	<li class="nav-separater">|</li>
+        <li><a href="/my-searches">my searches</a></li>
+	<li class="nav-separater">|</li>
+        <li><a href="/saved-searches">saved searches</a></li>
+	<li class="nav-separater">|</li>
+        <li><a href="/facebook-logout">logout</a></li>
+</ul>
+</div>
+<script type="text/javascript">
+
+$('#nav-button').click(function(){
+        if($('#navigation').hasClass('navigation-to-left')) {
+                $('#navigation').removeClass('navigation-to-left');
+        } else {
+                $('#navigation').addClass('navigation-to-left');
+        }
+});
+window.fb_login_cb = window.fb_login_cb||[];
+window.fb_logout_cb = window.fb_logout_cb||[];
+
+window.fb_login_cb.push(function(){
+	$('#navigation-wrapper').show();
+});
+
+window.fb_logout_cb.push(function(){
+        $('#navigation-wrapper').hide();
+});
+</script>

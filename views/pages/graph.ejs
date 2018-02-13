@@ -1,0 +1,142 @@
+<% include ../partials/header %>
+<div>
+<style>
+ html {
+      scroll-behavior: smooth;
+}
+body {
+	background: antiquewhite;
+}
+
+.content { 
+	text-align: left;
+}
+#ajax-loader {
+	width: 350px;
+	visiblity: hidden;
+	display: none;
+	position: relative;
+	top: -100px;
+}
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 667px) and (orientation : portrait) { 
+#ajax-loader {
+	display: block;
+} 
+}
+</style>
+
+<div class="graph-explanation">
+	<em>Each red point represents yesterday's cumulative sentigraph indexes for 1 hour. 
+<br><br>
+You may click on any red circle to fetch its data</em>
+</div>
+<svg width="600" height="600">
+	<% for(var i = 0; i < data.length; i++) { %>
+		<line id="line-<%=i; %>" x1="380" y1="300" x2="<%=data[i].x;%>" y2="<%=data[i].y; %>" />
+	<% } %>
+        <circle id="main" cx="380" cy="300" r="15" stroke="black" stroke-width="1" fill="yellow"><title>joy</title></circle>
+	
+	<% for(var i = 0; i < data.length; i++) { %>
+		<circle id="circle-<%=i;%>" class="circles" cx="<%=data[i].x;%>" cy="<%=data[i].y;%>" r="10" fill="orangered" data-date="<%=data[i].date;%>" onclick="getCircleData(this)" >
+			<title><%= data[i].jsDate.toDateString() + ' ' + data[i].jsDate.toTimeString()  %></title>
+		</circle>
+	<% } %>
+
+<script type="text/ecmascript"><![CDATA[
+	function getCircleData(e) {
+                var date = $(e).data('date');
+		
+		$('#ajax-loader').css({visibility: "visible"}); 
+
+                $.ajax({
+                        url : '/retrieve-hourly-watson-data?date=' + date,
+                        dataType: 'json',
+                        cache : true,
+                        success: function(data) {
+                                createChart(data, e);
+                        },
+                        error : function(x,y,z) {
+
+                        }
+               });
+	}
+
+function createChart(data, e) {
+        var t = $('<table cellpadding="0" cellspacing="4" border="0"></table>'), tr, td, h3, wrapper, d;
+
+	h3 = $('<h3/>', { class: "sentence-header"});
+	
+	d = new Date($(e).children('title').first().html());
+	h3.html('Quotes/Tweets for ' + d.toLocaleDateString() + ' ' + d.toLocaleTimeString());
+
+        $('#circle-results-chart').fadeOut(2000, function(){
+		$('#circle-results-chart').html('');
+		$('#circle-results-chart').append(h3);
+		wrapper = $('<div />', {class: "sentence-results-wrapper"});
+		wrapper.append($('<div />', {class: "sentence-pending-results-wrapper"}));
+		$('#circle-results-chart').append(wrapper);
+
+                for(var i = 0; i < data.length; i++) {
+                        for(var j = 0; j <  data[i].length; j++) {
+                                tr = $('<tr></tr>');
+                                t.append(tr);
+                                td = $('<td colspan="5" class="sentence-msg"></td>');
+                                td.html('<div><em>' + data[i][j].text.toString() + '</em></div>');
+                                tr.append(td);
+
+                                tr = $('<tr></tr>');
+                                t.append(tr);
+
+                                for(var k in data[i][j].tones) {
+                                        td = $('<td></td>');
+                                        td.html('<span class="tone-' + k + '">' + k + '</span><br>' + Math.round(parseFloat(data[i][j].tones[k]) * 100) + '%');
+                                        tr.append(td);
+                                }
+
+                                tr = $('<tr></tr>');
+                                t.append(tr);
+
+                                td = $('<td colspan="5" class="sentence-separator">-------------------------------</td>');
+                                tr.append(td);
+                        }
+                }
+                $('#circle-results-chart .sentence-results-wrapper .sentence-pending-results-wrapper').append(t);
+                $('#circle-results-chart').fadeIn(2000, function(){
+			$('#ajax-loader').css({visibility: "hidden"});
+			window.scrollTo(0, parseInt($('#circle-results-chart').position().top));
+		});
+
+        });
+}
+
+getCircleData($('.circles').get(0));
+]]>
+</script>
+</svg>
+<img id="ajax-loader" src="/img/ajax-loader.gif" ></img>
+
+<div id="circle-results-chart">
+	<div class="sentence-results-wrapper"></div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var circles = [
+        <% for(var i = 0; i < data.length; i++) { %>
+		<% if(i > 0) { %>,<% } %>{
+			oldx: "<%=data[i].x;%>", oldy : "<%=data[i].y;%>",
+			newx: "<%=data[i].x2;%>", newy : "<%=data[i].y2;%>",
+			tx : "<%= data[i].x2 - data[i].x; %>", ty : "<%= data[i].y2 - data[i].y; %>"
+		}
+        <% } %>		
+	];
+
+	$('.circles').each(function(i, v){
+		$('#circle-' + i).css({ transform: "translate(" + circles[i].tx + "px, " + circles[i].ty + "px)"});
+		$('#line-' + i).attr('x2', circles[i].newx).attr('y2', circles[i].newy);
+	});
+});
+</script>
+</div>
+<% include ../partials/footer %>

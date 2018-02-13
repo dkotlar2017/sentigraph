@@ -1,0 +1,33 @@
+{
+  "name": "sentigraph",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "async": "^2.5.0",
+    "body-parser": "^1.17.2",
+    "buffer-alloc": "^1.1.0",
+    "connect-memcached": "^0.2.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.0",
+    "ethereumjs-testrpc": "^3.0.2",
+    "express": "^4.15.0",
+    "express-session": "^1.15.3",
+    "formidable": "^1.1.0",
+    "google-auth-library": "0.12.0",
+    "level": "^2.1.2",
+    "md5": "^2.2.0",
+    "memcached": "^2.2.2",
+    "mongodb": "^2.2.29",
+    "node-dbi": "0.7.1",
+    "pg": "7.4.1",
+    "request": "^2.81.0",
+    "sha256": "0.2.0",
+    "sleep": "^5.1.1",
+    "solc": "^0.1.5",
+    "web3": "^0.14.0"
+  }
+}

@@ -1,0 +1,111 @@
+body {
+	background: antiquewhite;
+	font-family: Arial;
+}
+
+header.twitter-page-header {
+   color:  black;
+   font-weight: bold;
+   font-size: 20px;
+   text-align: center;
+   padding-top: 8px;
+   padding-bottom: 8px
+}
+.twitter-page-subheader {
+}
+
+header.twitter-page-header i {
+   font-style: normal;
+   color: red;
+}
+header.twitter-page-header b {
+  color: green;
+}
+
+.twitter-form-wrapper {
+	margin-top: 70px;
+}
+
+.ajax-loader {
+	margin-top: 20px;
+	min-height: 20px;
+}
+
+.check-save-img, .save-hashtag-img {
+	display: none;
+	max-width: 35px;
+	background-color: antiquewhite;
+	float: right;
+	position: relative;
+	left: -75px;
+	top: 0px;
+}
+
+.sentence-results-wrapper {
+	margin-top: 20px;
+	min-height: 20px;
+}
+
+.sentence-results-wrapper i {
+	font-weight: bold;
+}
+
+.sentence-results-wrapper b {
+}
+input[name=hashtag] {
+	height: 30px;
+	text-align: center;
+	width: 150px;
+	border: none;
+	outline: none;
+	background: none;
+	border-bottom: 1px solid gray;
+}
+
+.grad-scale {
+	display: none;
+}
+.grad-scale-bar {
+	background: #01ff01; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #01ff01 0%, #038eff 51%, #038eff 51%, #038eff 51%, #ff0101 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg, #01ff01 0%,#038eff 51%,#038eff 51%,#038eff 51%,#ff0101 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg, #01ff01 0%,#038eff 51%,#038eff 51%,#038eff 51%,#ff0101 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01ff01', endColorstr='#ff0101',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	width: 40%;
+	height: 40px;
+	border: 1px inset black;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.grad-scale-pointer {
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+	text-align: left;
+}
+
+.grad-scale-pointer img {
+	max-width: 40px;
+	position: relative;
+	top: -10px;
+}
+
+.guage-chart {
+	text-align: center;
+}
+
+.guage-chart > table {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	
+}
+
+
+
+@media only screen and (max-device-width: 667px) and (min-device-width: 300px) and (orientation: portrait) {
+svg {
+     margin-left: 0px; 
+}
+}

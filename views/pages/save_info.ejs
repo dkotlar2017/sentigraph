@@ -1,0 +1,104 @@
+<% include ../partials/header %>  
+<center>
+<% if(typeof save_info_error !== "undefined") { %>
+	<strong style="color: orangered;"><%=save_info_error; %></strong><br>
+<% } %>
+
+<br>
+<strong style="color: lightseagreen;">Welcome to the S3ntigrapH Pre-Sale<br>You can use any wallet - paper wallet or exchange</strong>
+<br>
+<br>
+</center>
+
+<form action="/save-info-save" method="post"> 
+<div id="save-info-input-wrapper">
+	<div class="sentence-pending-results-wrapper">
+
+		<div class="radio-wrapper">
+			<div>Please select a contribution method below. Depending on your choice, a different address will be shown below, to which you can send your contribution</div>
+			
+			<input type="radio" name="paymenttype" id="paymenttype-bitcoin" value="bitcoin" checked="checked"/> 
+			<label for="paymenttype-bitcoin">Bitcoin</label>
+	
+			<br>
+			<input type="radio" name="paymenttype" id="paymenttype-ether" value="ether" />
+			<label for="paymenttype-ether">Ether</label>
+
+			<br>
+			<input type="radio" name="paymenttype" id="paymenttype-wave" value="wave" />
+			<label for="paymenttype-wave">Waves</label>
+		</div>
+
+		<div class="payment-address-wrapper" style="display: block">
+			Please send Bitcoin payments to the address below<br>and follow further instructions<br><br>
+			Make sure to save the transaction id or hash given to you after you make your contribution<br><br>
+			<span style="color: orangered; font-weight: bold; font-style: italic;">You must send an equivalent of at least 1 waves in order to receive graph</span><br><br>
+			If you have any problems with contributing or saving your contribution data on this page, please email <a href="mailto://info@sentigraph.io">info@sentigraph.io</a><br>
+			
+			<div class="address-ro-wrapper">
+				<input type="text" class="address-ro-input" id="bitcoin-address-input" readOnly="true" value="12EDa63UZMFw6NFPiXKDBHRHyZE4Sa36aj" /> <i class="copy-to-clipboard">Copy</i>
+			</div>
+		</div>
+
+                <div class="payment-address-wrapper">
+                        Please send Ether payments to the address below<br>and follow further instructions<br><br>
+			Make sure to save the transaction id or hash given to you after you make your contribution<br><br>
+                        <span style="color: orangered; font-weight: bold; font-style: italic;">You must send an equivalent of at least 1 waves in order to receive graph</span><br><br>
+                        If you have any problems with contributing or saving your contribution data on this page, please email <a href="mailto://info@sentigraph.io">info@sentigraph.io</a><br>
+                        <div class="address-ro-wrapper">                  
+                                <input type="text" class="address-ro-input" style="width: 300px; margin-bottom: 15px" id="ether-address-input" readOnly="true" value="0xF32B4d480F4DA97306513465118271Edd3619B8c" /> <i class="copy-to-clipboard" style="float: right;">Copy</i><div style="clear: both;"></div> 
+                        </div>
+                </div>
+
+                <div class="payment-address-wrapper">
+                        Please send Waves payments to the address below<br>and follow further instructions (<span style="color: orangered; font-style: italic;">paper wallet only</span>)<br><br>
+			Make sure to save the transaction id or hash given to you after you make your contribution<br><br>
+                        <span style="color: orangered; font-weight: bold; font-style: italic;">You must send at least 1 waves in order to receive graph</span><br><br>
+                        If you have any problems with contributing or saving your contribution data on this page, please email <a href="mailto://info@sentigraph.io">info@sentigraph.io</a><br>
+
+                        <div class="address-ro-wrapper">                  
+                                <input type="text" class="address-ro-input" id="wave-address-input" readOnly="true" value="3PGVT9YhBjyoY5kki61x8woZPtuCyuLzxks" /> <i class="copy-to-clipboard">Copy</i>                                        
+                        </div>
+                </div>
+		<div style="text-align: left;">
+			Please enter your Waves address below. You can find your waves address at <a href="https://waveswallet.io/" target="_blank">waveswallet.io</a>. We will <i style="color:orangered;">only</i> be sending Graph tokens to this Waves address. If you do not enter a Waves address, we will not be able to send you your tokens
+		</div><br>
+		<label for="walletid" class="textarea-label">Waves address:</label> 
+		<textarea rows="3" cols="40" id="walletid" name="walletid" required pattern="" placeholder="example: 3PGVT9YhBjyoY5kki637890ZPtuCyuLzxks"></textarea>
+		<br>	
+		<span class="input-warning-msg"  id="walletid-warning-msg">Please make sure the waves address is inserted and formatted properly</span>
+		<center>
+		<div>
+			<div id="submit-next-one" class="submit submit-next">Next</div>
+		</div>
+		</center>
+	</div>
+	<div class="sentence-pending-results-wrapper" style="display: none;">
+                <div style="">                           
+			Please enter the transaction id or hash below. The transaction id or hash should have been given to you after you made your contribution
+                </div>
+		<br><br>
+		<label for="txnid" class="textarea-label">Txn id: </label> 
+		<textarea rows="3" cols="40" id="txnid" name="txnid" required  placeholder="example: a97aaf679880e079f80ddca53044b8cb3bd511014fb032128e33d5430dab4c8e"></textarea><br>
+		<span class="input-warning-msg" id="txnid-warning-msg">Please make sure the transaction id or hash is inserted and formatted properly</span>
+		<span class="input-warning-msg"  id="txnid-warning-msg2">This Transaction id or hash already exists in our system, please try a different one or contact us if you have questions</span>
+
+		<center>
+                <div>
+                        <div id="submit-next-two" class="submit submit-prev">Back</div>
+                </div>
+		</center>
+	</div>
+	<center>
+	<div class="sentence-pending-results-wrapper" style="display: none; overflow: hidden; padding-top: 0px; margin-top: 40px;"><div class="submit submit-next" id="save-info-save-div">Save</div></div></center>
+	<div style="clear: both;"></div>
+</div>
+<center>
+<div id="wallet-submit-wrapper" class="sentence-pending-results-wrapper">
+	<strong class="save-info-strong-txt">You are about to submit the transaction id or hash and Waves address. Are you sure everything is correct?</strong><br>
+	<button class="submit submit2">Yes I am sure</button>
+</div>
+</center>
+</form>
+
+<% include ../partials/footer %>  

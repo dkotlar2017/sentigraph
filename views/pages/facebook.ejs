@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+<body>
+<style>
+#navigation {
+	list-style-type: none;
+	clear: both;
+	overflow: hidden;
+	transition: none;
+}
+.navigation-to-left {
+	margin-left: 0px;
+}
+
+#navigation-wrapper {
+	width: auto;
+	font-family: Verdana;
+	display: none;
+}
+
+#navigation li {
+	float: left;
+	padding: 0px 10px 0px 10px;
+	font-weight: bold;
+}
+
+#navigation li a {
+	text-decoration: none;
+}
+
+#nav-button {
+	font-weight: bold;
+	font-size: 30px;
+	width: auto;
+	padding: 10px 20px 10px 20px;
+	border: 1px solid black;
+	background: lightgrey;
+	border-radius: 5px;
+	display: inline-block;
+	cursor: pointer;	
+	display: none;
+}
+
+@media only screen and (max-width: 500px) { 
+	#nav-button {
+		display: inline-block;
+	}
+
+	#navigation-wrapper {
+		max-width: 100%;
+		font-size: 20px;
+		position: relative;
+		z-index: 9999;
+		background-color: white;
+	}
+
+	#navigation {
+		transition: 1s margin-left;
+		margin-top: 0px;
+		position: fixed;
+		z-index: 9999;
+		background-color: white;
+	}
+
+	.navigation-to-left {
+		margin-left: -4096px;
+	}
+
+	#navigation li {
+		width: 85%;
+		border: 1px solid black;
+		border-radius: 15px;
+		margin-top: 5px;
+		padding: 10px;	
+		text-align: center;
+	}
+}
+</style>
+
+<div id="navigation-wrapper">
+<div id="nav-button">=</div>
+<ul id="navigation" class="navigation-to-left">
+	<li><a href="#">home</a></li>
+	<li><a href="#">past searches</a></li>
+	<li><a href="#">home</a></li>
+	<li><a href="#">home</a></li>
+	<li><a href="#">logout</a></li>
+</ul>
+</div>
+<script>
+
+  function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      testAPI(response);
+    }
+
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '509558469401143',
+	    cookie     : true,  // enable cookies to allow the server to access 
+	    xfbml      : true,  // parse social plugins on this page
+	    version    : 'v2.8' // use graph api version 2.8
+	  });
+
+	  FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	  });
+
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function testAPI(r) {
+console.log(r);
+	if(r.status === "connected") {
+		$('#navigation-wrapper').show();
+		$('.fb-login-button').hide();
+		sendFacebookLogin({id : r.authResponse.userID, accessToken : r.authResponse.accessToken});
+	}
+	FB.api('/me', { locale: 'en_US', fields: 'name, email' }, function(response) {
+		console.log(response);
+	});
+  }
+
+function sendFacebookLogin(d) {
+	var data = {
+		id: d.id,
+		token: d.accessToken
+	};
+	
+	$.post('/facebook-login', data, function(response){
+
+	});
+}
+
+</script>
+
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>
+
+</body>
+</html>
