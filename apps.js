@@ -36,22 +36,20 @@ app.set('view engine', 'ejs');
 app.set('views',__dirname + '/views');
 
 // use res.render to load up an ejs view file
-app.get('/', index.save_info);
+app.get('/', index.twitter);
 app.get('/api', index.api);
 app.get('/s3graph', index.twitter);
 app.get('/s3graph2', index.twitter2);
 app.get('/googlelogin', google.google_login);
 app.post('/google-login', google.login);
 app.post('/get-twitter-hashtag-data', index.get_twitter_hashtag_data);
-app.post('/store-sentences', index.store_sentences);
-app.post('/store-hashtags', index.store_hashtags);
-app.get('/results', index.results);
-app.get('/graph', index.graph);
-app.get('/retrieve-hourly-watson-data', index.retrieve_hourly_watson_data);
+//app.post('/store-sentences', index.store_sentences);
+//app.post('/store-hashtags', index.store_hashtags);
+//app.get('/retrieve-hourly-watson-data', index.retrieve_hourly_watson_data);
 app.get('/save-info', index.save_info);
 app.post('/save-info-save',index.save_info_save);
 app.get('/save-info-success', index.save_info_success);
-app.post('/check_txn',index.check_txn);
+//app.post('/check_txn',index.check_txn);
 app.get('/facebook', facebook.facebook);
 app.post('/facebook-login', facebook.facebook_login);
 app.get('/facebook-logout', facebook.facebook_logout);

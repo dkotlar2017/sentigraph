@@ -20,8 +20,6 @@ exports.createContract = function(){
 exports.setData = function(data, q) {
 	var num = lib.getDateForNames();
 
-console.log(num);
-console.log(data);
 	contractInstance.addRecord(parseInt(num), q.toString(), {from: web3.eth.accounts[0]});
 };
 

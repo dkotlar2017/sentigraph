@@ -40,10 +40,15 @@ exports.retrieveTweetsByHashtag = function(hashtag, cb) {
 				'Authorization' : 'Bearer ' + bearer_token
 			}
 		}, function(error, response, body) {
-			var r = JSON.parse(body),
-				a = r.statuses.map(function(s) { 
-				return {data: s.text,created_at: s.created_at, dateAdded: new Date()};  
-			});
+			var r = JSON.parse(body), a = [];
+
+			if(typeof r !== "undefined" && typeof r.statuses !== "undefined") {
+				try {
+					a = r.statuses.map(function(s) { 
+						return {data: s.text,created_at: s.created_at, dateAdded: new Date()};  
+					});
+				} catch (e) {}
+			}
 
 			cb(null, a);
 		});

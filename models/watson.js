@@ -23,7 +23,6 @@ exports.getData = function(text, cb) {
 			var data2 = {};
 			data2.text = item.text;
 
-console.log(item);
 			if(typeof item.tone_categories === "undefined") {
 				return;
 			}

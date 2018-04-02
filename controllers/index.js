@@ -15,8 +15,9 @@ exports.main = function(req, res) {
 
 exports.login = function(req, res) {
 	var obj = {
-		scripts: ["https://apis.google.com/js/platform.js"]
-	}
+		scripts: ["https://apis.google.com/js/platform.js"],
+		css: ['login']
+	};
 
 	res.render('pages/login', obj);
 };
@@ -41,7 +42,7 @@ exports.twitter = function(req, res) {
 
 exports.twitter2 = function(req, res) {
         var obj = {
-                scripts : ['twitter','https://www.gstatic.com/charts/loader.js'],
+                scripts : ['twitter2','https://www.gstatic.com/charts/loader.js'],
                 css: ['twitter']
         };
 

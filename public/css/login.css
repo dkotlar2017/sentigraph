@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    font-family: PT Mono,monospace;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #fff;
+    text-align: left;
+    background-color: #261a4b;
+    overflow-x: hidden;
+}
+.facebook-login-wrapper,
+.google-login-wrapper {
+	opacity: 0.0;
+	position: absolute;
+	padding-left: 70px;
+	z-index: 30;
+}
+.google-login-wrapper {
+	bottom: 20px;
+}
+.facebook-login-wrapper {
+	bottom: 80px;
+}
+.btn-white {
+    background-color: #fff;
+    color: #261a4b;
+    position: relative;
+    font-size: 12px;
+    padding-left: 48px;
+    width: 100%;
+}
+.social-facebook, .social-google {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #fff;
+}
+.social-facebook {
+    background-color: #3a5998;
+}
+.social-google {
+    background-color: #dc4e41;
+}
+.fab {
+    font-family: Font Awesome\ 5 Brands;
+}
+.fa-facebook-f:before {
+    content: "\f39e";
+}
+.fa-google:before {
+    content: "\f1a0";
+}
+.login-buttons {
+	padding: 0px 30px 0px 30px;
+	position: absolute;
+	z-index: 20;
+	bottom: 5px;
+	width: 83%;
+}
+.login-buttons .btn-white {
+	margin-top: 10px;
+}
+.welcome-text h1 {
+    font-size: 36px;
+    line-height: 43px;
+    margin-top: 66px;
+}
+.welcome-text p {
+    margin: 0;
+}
+.g-signin2, .g-signin2 > div {
+	width: 250px !important;
+}
