@@ -1,15 +1,22 @@
 <% include ../partials/header %>
+<main>
 <% include ../partials/logo %>
-<% include ../partials/pulse %>
+<div class="main-wrapper">
+<div class= "view login">
 <% include ../partials/facebook %>
 <% include ../partials/google %>
 
 <div class="welcome-text">
-	<h1 class="accent-yellow">S3Pulse</h1><p>Monitoring the pulse<br> of Twitter's network.</p>
+<% include ../partials/pulse %>  
+	<h1 class="accent-yellow">Sentigraph<br>alpha</h1><p>Monitoring the pulse<br> of Twitter's network.</p>
 </div>
 
 <div class="login-buttons">
 	<a class="btn btn-white" href="/s3pulse/calc"><span class="social-facebook"><i class="fab fa-facebook-f"></i></span>Log in with Facebook</a>
 	<a class="btn btn-white" href="/s3pulse/calc"><span class="social-google"><i class="fab fa-google"></i></span>Log in with Google</a>
 </div>
+
+</div>
+</div>
+</main>
 <% include ../partials/footer %>

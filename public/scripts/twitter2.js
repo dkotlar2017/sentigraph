@@ -9,7 +9,7 @@ var guageChartData, chart, chart_options = {
 	currentHashtag = null;
 
 function sendTwitterHashtag() {
-	$('.ajax-loader img').show();
+	$('.ajax-loader').show();
 	$('.submit').attr('disabled', 'true');
 	$('.grad-scale').hide();
 
@@ -29,7 +29,7 @@ function sendTwitterHashtag() {
 	}).done(function(data){
 		var n, t, pos;
 
-		$('.ajax-loader img').hide();
+		$('.ajax-loader').hide();
 
 		if(data.err) {
 			switch(data.code){
@@ -65,6 +65,9 @@ function sendTwitterHashtag() {
     }
 			$('.twitter-form-wrapper').hide();
 			$('.index-wrapper').html('');
+			$('.index-wrapper').fadeIn(function(){
+				$('.index-wrapper').css({display: "flex"});
+			});
 			$('.index-wrapper').append($('<canvas id="index-meter" height="' + indexWidth + '" width="' + indexWidth + '" />'));
 			var $indexodo = $('<div class="index-odo"></div>');
 			$indexodo.append($('<h2 class="index-tag">' + currentHashtag +'</h2>'));
@@ -75,6 +78,11 @@ function sendTwitterHashtag() {
 			setTimeout(function() {
 				const meter = new indexMeter(document.getElementById('index-meter'));
 				meter.drawScore((n / 100).toFixed(2));
+				
+				$('.results-bottom').fadeIn();
+				setTimeout(function(){
+					$('h1.index-result').html(currentQ.toFixed(2));
+				}, 200);
 			}, 100);
 			//guageChartData.setValue(0, 1, parseInt(n));
 			//chart.draw(guageChartData, chart_options);
@@ -265,7 +273,7 @@ class indexMeter {
 
 
 $(document).ready(function(){
-	$('.ajax-loader img').hide();
+	$('.ajax-loader').hide();
 
 	$('input[name="hashtag"]').focus();
 
@@ -296,5 +304,15 @@ $(document).ready(function(){
 
 			
 		});
+	});
+
+	$('.results-bottom').click(function(e) {
+		e.preventDefault();
+		$('.results-bottom').fadeOut();
+		$('.index-wrapper').fadeOut(function(){
+			$('.twitter-form-wrapper').fadeIn();
+		});
+
+		return false;
 	});
 });

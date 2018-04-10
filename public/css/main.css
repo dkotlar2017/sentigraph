@@ -1,11 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Mono);
-html, body {
- height: 100%;
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
 }
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
 	font-family: Helvetica;
 	color: black;
 	font-size: 14px;
+	overflow: hidden;
 }
 
 select {
@@ -17,9 +28,24 @@ button {
 	font-size: 2em;
 }
 
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
 .content { 
 	height: 100%;
 }
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+}
+
 .copyright {
 	position: absolute;
 	bottom: 5px;
@@ -28,6 +54,26 @@ button {
 	margin-left: -4px;
 }
 
+.main-wrapper {
+    height: 100%;
+    padding-top: 92px;
+}
+
+.view {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 92px;
+    height: auto;
+    text-align: center;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 select[name=msgtype] {
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -212,6 +258,17 @@ td.sentence-separator {
     transition: all .3s ease;
     text-decoration: none;
 }
+.btn-white {
+    background-color: #fff;
+    color: #261a4b;
+    position: relative;
+    font-size: 16px;
+    padding-left: 48px;
+}
+.btn-yellow {
+    color: #fff300;
+    border-color: #fff300;
+}
 .btn-yellow-solid {
     background-color: #fff300;
     color: #261a4b;
@@ -220,12 +277,41 @@ td.sentence-separator {
     color: #fff300;
 }
 
-.header-logo { 
-	height: 92px;
+.header-logo {
+    position: absolute;
+    height: 92px;
+    padding: 30px 16px;
+    top: 0;
+    left: 0;
+    right: 0;
 }
-.header-logo img {
-	height: 30px;
-	padding: 30px 16px;
+
+.header-logo-wrapper {
+    position: relative;
+    height: 100%;
+}
+
+.logo {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.logo, .logout-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.logo img {
+    width: auto;
+    height: 100%;
 }
 
 .input-group {
@@ -253,6 +339,7 @@ td.sentence-separator {
     font-size: 18px;
     line-height: 24px;
     text-align: center;
+    outline: 0;
 }
 
 .input-group .form-control {

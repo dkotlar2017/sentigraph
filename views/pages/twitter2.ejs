@@ -1,39 +1,21 @@
 <% include ../partials/header %>
-<%include ../partials/pulse %>
-<link rel="stylesheet" href="/css/login.css" />
-<style>
-.twitter-form-wrapper {
-	position: absolute;
-	bottom: 20px;
-	width: 88%;
-	padding: 30px;
-}
-
-.twitter-form-wrapper .submit {
-	width: 80%;
-	margin-left: 10%;
-	font-family: PT Mono,monospace;
-}
-
-.welcome-text {
-	position: absolute;
-	width:100%;
-}
-</style>
-
+<main>
+<div class="main-wrapper">
+<div class="view calc">
 <div class="welcome-text">
-	<h1 class="accent-yellow">S3Pulse</h1>
+	<%include ../partials/pulse %>
+	<h1 class="accent-yellow">Sentigraph<br>alpha</h1>
 	<center><div class="index-wrapper"></div></center>
 </div>
 
-<div class="twitter-form-wrapper">
+<div class="twitter-form-wrapper calc-form">
 <form action="/get-twitter-hashtag-data" method="post" onsubmit="return sendTwitterHashtag()">
 	<div class="input-group">
 		<div class="input-group-prepend"><span class="input-group-text">#</span></div>
 		<input name="hashtag" placeholder="enter hashtag"  class="form-control" autocomplete="off" maxlength="140" type="text" required />&nbsp;<img src="/img/add_green.png" class="save-hashtag-img" /><img src="/img/ps-plus-icon-check.png" class="check-save-img" />	
 	</div>
 	<div>
-		<button type="submit" value="save" class="submit btn btn-yellow-solid">CALCULATE INDEX</button>		
+		<button type="submit" value="save" class="submit btn btn-yellow-solid">CALCULATE&nbsp;INDEX</button>		
 	</div>
 </form>
 </div>
@@ -41,15 +23,9 @@
 <div class="ajax-loader">
 	<img src="/img/ajax-loader.gif" />
 </div>
-<!--
-<div class="sentence-results-wrapper">
-</div>
-<div class="grad-scale grad-scale-bar"></div>
-<div class="grad-scale grad-scale-pointer"><img src="/img/point-up.png" /></div>
 
-
-<div id="guage-chart" class="guage-chart">
-
-</div>
--->
+<div class="results-bottom"><a class="btn btn-yellow" href="/s3pulse/calc">New Graph</a></div>
 <% include ../partials/footer %>
+</div>
+</div>
+</main>

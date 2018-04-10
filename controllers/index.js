@@ -42,8 +42,8 @@ exports.twitter = function(req, res) {
 
 exports.twitter2 = function(req, res) {
         var obj = {
-                scripts : ['twitter2','https://www.gstatic.com/charts/loader.js'],
-                css: ['twitter']
+                scripts : ['twitter2'],
+                css: ['login', 'twitter2']
         };
 
         res.render('pages/twitter2', obj);

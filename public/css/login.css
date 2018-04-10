@@ -9,6 +9,13 @@ body {
     background-color: #261a4b;
     overflow-x: hidden;
 }
+
+h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
 .facebook-login-wrapper,
 .google-login-wrapper {
 	opacity: 0.0;
@@ -22,13 +29,11 @@ body {
 .facebook-login-wrapper {
 	bottom: 80px;
 }
-.btn-white {
-    background-color: #fff;
-    color: #261a4b;
-    position: relative;
-    font-size: 12px;
-    padding-left: 48px;
-    width: 100%;
+.login-buttons {
+    margin-bottom: 30px;
+}
+.login-buttons .btn:not(:last-child) {
+    margin-bottom: 10px;
 }
 .social-facebook, .social-google {
     display: -ms-flexbox;
@@ -60,24 +65,50 @@ body {
 .fa-google:before {
     content: "\f1a0";
 }
-.login-buttons {
-	padding: 0px 30px 0px 30px;
-	position: absolute;
-	z-index: 20;
-	bottom: 5px;
-	width: 83%;
+.welcome-text {
+    position: relative;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    display: -ms-flexbox;
+    display: block;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
-.login-buttons .btn-white {
-	margin-top: 10px;
-}
+
 .welcome-text h1 {
     font-size: 36px;
     line-height: 43px;
-    margin-top: 66px;
+     margin-top: 66px;
 }
 .welcome-text p {
     margin: 0;
 }
 .g-signin2, .g-signin2 > div {
 	width: 250px !important;
+}
+
+@media only screen and (orientation: landscape) {
+	.main-wrapper {
+		padding-top: 64px;
+	}
+
+	.view {
+		top: 64px;
+	}
+	.login-buttons {
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-flow: row nowrap;
+		flex-flow: row nowrap;
+	}
+	.login-buttons .btn:not(:last-child) {
+		margin-bottom: 0;
+		margin-right: 10px;
+	}
+	.login-buttons .btn {
+		-ms-flex-positive: 1;
+		flex-grow: 1;
+	}
 }
