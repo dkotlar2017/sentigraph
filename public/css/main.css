@@ -118,6 +118,7 @@ svg .circles {
 	border: 0;
 	border-radius: 10px;
 	font-family: monospace;
+	cursor: pointer;
 }
 
 input[name=msg] {
@@ -364,6 +365,17 @@ td.sentence-separator {
     text-align: center;
     white-space: nowrap;
     color: #50e3c2;
+}
+
+
+.error-message {
+	position: absolute;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	font-family: PT Mono,monospace;
+	color: red;
+	font-weight: bold;
 }
 
 @media only screen and (min-device-width: 300px) and (max-device-width: 667px) and (orientation : portrait) { 

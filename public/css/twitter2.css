@@ -151,6 +151,8 @@ width: calc(100vw - 60px);
 .results-bottom {
 	margin-bottom: 72px;
 	display: none;
+	position: relative;
+	z-index: 9999;
 }
 .calc h1 {
  margin-top: 0px;
@@ -166,12 +168,19 @@ width: calc(100vw - 60px);
 }
 .welcome-text {
 }
+.results-text {
+	padding-bottom: 10px;
+}
 @media only screen and (orientation: landscape) {
 	.calc-form {
 		margin-bottom: 30px;
 	}
 	.results-bottom {
 		margin-bottom: 30px;
+	}
+
+	#index-meter {
+		left: calc(50% - (100vh - 90px)/2);
 	}
 }
 

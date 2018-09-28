@@ -11,10 +11,10 @@ window.fbAsyncInit = function() {
 	  FB.getLoginStatus(function(response) {
 		if (response.status == "connected") {
 			FB.logout(function(){ 
-				window.location.href = "/s3graph";
+				window.location.href = "/login";
 			});
 		} else {
-			window.location.href = "/s3graph";
+			window.location.href = "/login";
 		}
           });
 

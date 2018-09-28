@@ -20,8 +20,17 @@ function onSignIn(googleUser) {
 	$.post('/google-login', {token : id_token}, function(response){
 		response = $.parseJSON(response);
 		if(typeof response.email !== "undefined") {
-			window.location.href = "/s3graph";
+			window.location.href = "/";
 		}
 	});
 };
+
+$(document).ready(function(){
+setTimeout(function(){
+	var pos = $('.login-buttons a').eq(1).position();
+	var h = $('.login-buttons a').eq(1).css('height');
+	var w = $('.login-buttons a').eq(1).css('width');
+	$('.google-login-wrapper').css({height: h, width: w, top: pos.top + "px", left : pos.left + "px"});
+}, 2000);
+});
 </script>

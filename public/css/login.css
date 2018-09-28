@@ -20,14 +20,13 @@ h1 {
 .google-login-wrapper {
 	opacity: 0.0;
 	position: absolute;
-	padding-left: 70px;
 	z-index: 30;
 }
-.google-login-wrapper {
-	bottom: 20px;
-}
-.facebook-login-wrapper {
-	bottom: 80px;
+
+.facebook-login-wrapper > div, .facebook-login-wrapper span, .facebook-login-wrapper iframe {
+	height: 100% !important;
+	width: 100% !important;
+	display: block !important;
 }
 .login-buttons {
     margin-bottom: 30px;
@@ -87,6 +86,7 @@ h1 {
 }
 .g-signin2, .g-signin2 > div {
 	width: 250px !important;
+	height: 100% !important;
 }
 
 @media only screen and (orientation: landscape) {
@@ -110,5 +110,9 @@ h1 {
 	.login-buttons .btn {
 		-ms-flex-positive: 1;
 		flex-grow: 1;
+	}
+
+	.welcome-text {
+		display: flex;
 	}
 }

@@ -5,17 +5,18 @@
 <div class="welcome-text">
 	<%include ../partials/pulse %>
 	<h1 class="accent-yellow">Sentigraph<br>alpha</h1>
-	<center><div class="index-wrapper"></div></center>
+	<div class="index-wrapper"></div>
+	<div class="results-text"></div>
 </div>
 
 <div class="twitter-form-wrapper calc-form">
-<form action="/get-twitter-hashtag-data" method="post" onsubmit="return sendTwitterHashtag()">
+<form action="/get-twitter-hashtag-data" method="post">
 	<div class="input-group">
 		<div class="input-group-prepend"><span class="input-group-text">#</span></div>
 		<input name="hashtag" placeholder="enter hashtag"  class="form-control" autocomplete="off" maxlength="140" type="text" required />&nbsp;<img src="/img/add_green.png" class="save-hashtag-img" /><img src="/img/ps-plus-icon-check.png" class="check-save-img" />	
 	</div>
 	<div>
-		<button type="submit" value="save" class="submit btn btn-yellow-solid">CALCULATE&nbsp;INDEX</button>		
+		<a class="submit btn btn-yellow-solid">CALCULATE&nbsp;INDEX</a>		
 	</div>
 </form>
 </div>

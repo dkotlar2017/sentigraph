@@ -45,8 +45,26 @@ exports.twitter2 = function(req, res) {
                 scripts : ['twitter2'],
                 css: ['login', 'twitter2']
         };
+        async.waterfall([
+                function(cb) {
+                        users.isLoggedIn(req.session.token, function(err, b) {
+                                if(!b) {
+                                        cb("not logged in");
+                                } else {
 
-        res.render('pages/twitter2', obj);
+                                        cb(null);
+                                }
+                        });
+                }],
+	function(err, results) {
+                if(err) {
+                      //  res.redirect('/login');
+                      //  return;
+                }
+
+        	res.render('pages/twitter2', obj);
+
+	});
 };
 
 exports.my_searches = function(req, res) {
@@ -73,8 +91,8 @@ exports.my_searches = function(req, res) {
 		}
 	], function(err, result) {
 		if(err) {
-			res.redirect('/s3graph');
-			return;
+		//	res.redirect('/login');
+		//	return;
 		}
 		
 		obj.data = result;
@@ -106,8 +124,8 @@ exports.my_searches_chart = function(req, res) {
 		}
 	], function(err, result){
                 if(err) {
-                        res.redirect('/s3graph');
-                        return;
+                  //      res.redirect('/login');
+                    //    return;
                 }	
 
 		obj.data = result;

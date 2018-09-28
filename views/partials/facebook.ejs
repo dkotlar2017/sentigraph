@@ -12,7 +12,7 @@
 
 window.fbAsyncInit = function() {
           FB.init({
-            appId      : '509558469401143',
+            appId      : '356900761483785',//'509558469401143',
             cookie     : true,  // enable cookies to allow the server to access 
             xfbml      : true,  // parse social plugins on this page
             version    : 'v2.8' // use graph api version 2.8
@@ -61,10 +61,17 @@ function sendFacebookLogin(d) {
         };
         
         $.post('/facebook-login', data, function(response){
-		window.location.href = "/s3graph";
+		window.location.href = "/";
         });
 }
 
+$(document).ready(function(){
+	var pos = $('.login-buttons a').first().position();
+	var h = $('.login-buttons a').first().css('height');
+	var w = $('.login-buttons a').first().css('width');
+
+	$('.facebook-login-wrapper').css({height: h, width: w, top: pos.top + "px", left : pos.left + "px"});
+});
 </script>
 
 <div class="facebook-login-wrapper">

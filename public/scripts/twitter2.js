@@ -8,7 +8,41 @@ var guageChartData, chart, chart_options = {
 	currentQ = null,
 	currentHashtag = null;
 
+function displayErrorMessage(m) {
+	var $div = $('<div />');
+	
+	$('.error-message').remove();
+
+	$div.addClass('error-message');
+	$div.html(m);
+
+	$('body').append($div);
+
+	$div.css({
+		top : (parseInt($('.input-group').offset().top) - 50) + "px",
+		left: "0px"
+	});
+
+	setTimeout(function(){
+		if($div.length && $div.is(':visible')) {
+			$div.fadeOut(function(){
+				$div.remove();
+			});
+		}
+	}, 5000);
+}
+
 function sendTwitterHashtag() {
+	var resultText = {
+			"0.50" : "Excellent Initiative/High crowd approval",
+			"0.70" : "Very Good Initiative/moderate crowd interest",
+			"0.90" : "Fair initiative/Event/low crowd interest",
+			"1.50" : "Manageable initiative/ crowd accommodation",
+			"2.00" : "Struggling Initiative/ moderate crowd criticism",
+			"10.00" : "Bad Idea / high crowd disapproval",
+			"else" : "High crowd protest"
+			};
+
 	$('.ajax-loader').show();
 	$('.submit').attr('disabled', 'true');
 	$('.grad-scale').hide();
@@ -22,9 +56,10 @@ function sendTwitterHashtag() {
 	}
 
 	$.ajax({
-		url : "/get-twitter-hashtag-data",
-		method : "post",
-		dataType : "json",
+	//	url : "/get-twitter-hashtag-data",
+		url : '/gi-sim',
+//		method : "post",
+		dataType : "jsonp",
 		data : { hashtag : v }
 	}).done(function(data){
 		var n, t, pos;
@@ -34,7 +69,8 @@ function sendTwitterHashtag() {
 		if(data.err) {
 			switch(data.code){
 				case "HASHTAG_NOT_FOUND":
-					$('.sentence-results-wrapper').html("The hashtag <i>" + v + "</i> was not found");
+					displayErrorMessage("Oops! " + v +  " is unavailable.");
+					//$('.sentence-results-wrapper').html("The hashtag <i>" + v + "</i> was not found");
 				break;
 				
 				case "NULL_RESULTS":
@@ -59,12 +95,15 @@ function sendTwitterHashtag() {
 				$('.save-hashtag-img').show();
 			}
 			
-    let indexWidth = window.innerWidth - 60;
-    if (window.matchMedia("(orientation: landscape)").matches) {
-      indexWidth = window.innerHeight - 90;
-    }
+			let indexWidth = window.innerWidth - 60;
+
+			if (window.matchMedia("(orientation: landscape)").matches) {
+				indexWidth = window.innerHeight - 90;
+			}
+
 			$('.twitter-form-wrapper').hide();
 			$('.index-wrapper').html('');
+			$('.results-text').html('');
 			$('.index-wrapper').fadeIn(function(){
 				$('.index-wrapper').css({display: "flex"});
 			});
@@ -82,6 +121,13 @@ function sendTwitterHashtag() {
 				$('.results-bottom').fadeIn();
 				setTimeout(function(){
 					$('h1.index-result').html(currentQ.toFixed(2));
+					
+					for(let i in resultText) {
+						if(parseFloat(i) >= currentQ.toFixed(2)) {
+							$('.results-text').html(resultText[i]);
+							break;
+						}
+					}
 				}, 200);
 			}, 100);
 			//guageChartData.setValue(0, 1, parseInt(n));
@@ -313,6 +359,31 @@ $(document).ready(function(){
 			$('.twitter-form-wrapper').fadeIn();
 		});
 
+		 $('.results-text').html('');
 		return false;
 	});
+
+	$('.calc-form form').submit(function(e){
+		e.preventDefault();
+		sendTwitterHashtag();
+		return false;
+	});
+	$('.submit').on('click', function(){
+		sendTwitterHashtag();
+	});
+
+	$(document).on('touchstart', '.submit', function(){
+		sendTwitterHashtag();
+	});
+
+	if(window.location.search.indexOf('search=')> -1) {
+		let searchA = window.location.search.replace(/^\?/gi, '').split('&');
+
+		searchA.forEach(function(item){
+			if(item.indexOf('search=') > -1) {
+				$('input[name="hashtag"]').val(item.replace('search=', ''));
+				$('.submit').click();
+			}
+		});
+	}
 });

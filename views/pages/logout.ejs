@@ -7,7 +7,7 @@ var lotries = 0;
 
 function doLogout() {
 	if(lotries > 0) {
-		 window.location.href = "/s3graph"
+		 window.location.href = "/login"
 	} else {
 		lotries++;
 	}
@@ -44,7 +44,7 @@ function onSignIn(googleUser) {
 
 $(document).ready(function(){
 	setTimeout(function() {
-		window.location.href = "/s3graph";
+		window.location.href = "/login";
 	}, 5000);
 });
 </script>
