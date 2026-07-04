@@ -23,58 +23,66 @@ app.use(session({
 	})
 }));
 
-const index = require('./controllers/index');
-const capi = require('./controllers/api');
-const facebook = require('./controllers/facebook');
-const google = require('./controllers/google');
-
-const port = 80;
+let port = 80;
 const debug = false;
-
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
-app.set('views',__dirname + '/views');
+app.set('views', __dirname + '/views');
 
-// use res.render to load up an ejs view file
-app.get('/', index.twitter2);
-app.get('/api', index.api);
-app.get('/s3graph', index.twitter);
-app.get('/s3graph2', index.twitter2);
-app.get('/googlelogin', google.google_login);
-app.post('/google-login', google.login);
-app.post('/get-twitter-hashtag-data', index.get_twitter_hashtag_data);
-//app.post('/store-sentences', index.store_sentences);
-//app.post('/store-hashtags', index.store_hashtags);
-//app.get('/retrieve-hourly-watson-data', index.retrieve_hourly_watson_data);
-app.get('/save-info', index.save_info);
-app.post('/save-info-save',index.save_info_save);
-app.get('/save-info-success', index.save_info_success);
-//app.post('/check_txn',index.check_txn);
-app.get('/facebook', facebook.facebook);
-app.post('/facebook-login', facebook.facebook_login);
-app.get('/facebook-logout', facebook.facebook_logout);
-app.post('/save-latest-result', index.save_latest_result);
-app.get('/my-searches', index.my_searches);
-app.get('/my-searches-chart', index.my_searches_chart);
-app.get('/login', index.login);
-app.get('/logout', index.logout);
-app.get('/gi-sim', capi.getQ);
+async function start() {
+	const [facebook, google, index, capi] = await Promise.all([
+		import('./controllers/facebook.mjs'),
+		import('./controllers/google.mjs'),
+		import('./controllers/index.mjs'),
+		import('./controllers/api.mjs'),
+	]);
 
-if(debug){
-    port = 8000;
-    console.log("Running in debug mode");
+	// use res.render to load up an ejs view file
+	app.get('/', index.twitter2);
+	app.get('/api', index.api);
+	app.get('/s3graph', index.twitter);
+	app.get('/s3graph2', index.twitter2);
+	app.get('/googlelogin', google.google_login);
+	app.post('/google-login', google.login);
+	app.post('/get-twitter-hashtag-data', index.get_twitter_hashtag_data);
+	//app.post('/store-sentences', index.store_sentences);
+	//app.post('/store-hashtags', index.store_hashtags);
+	//app.get('/retrieve-hourly-watson-data', index.retrieve_hourly_watson_data);
+	app.get('/save-info', index.save_info);
+	app.post('/save-info-save',index.save_info_save);
+	app.get('/save-info-success', index.save_info_success);
+	//app.post('/check_txn',index.check_txn);
+	app.get('/facebook', facebook.facebook);
+	app.post('/facebook-login', facebook.facebook_login);
+	app.get('/facebook-logout', facebook.facebook_logout);
+	app.post('/save-latest-result', index.save_latest_result);
+	app.get('/my-searches', index.my_searches);
+	app.get('/my-searches-chart', index.my_searches_chart);
+	app.get('/login', index.login);
+	app.get('/logout', index.logout);
+	app.get('/gi-sim', capi.getQ);
+
+	if(debug){
+		port = 8000;
+		console.log("Running in debug mode");
+	}
+	else
+	{
+		console.log("Running in normal mode");
+		var privateKey  = fs.readFileSync('../certs/key.pem', 'utf8');
+		var certificate = fs.readFileSync('../certs/cert.pem', 'utf8');
+		var credentials = {key: privateKey, cert: certificate};
+		var httpsServer = https.createServer(credentials, app);
+		httpsServer.listen(443);
+	}
+
+	app.listen(port);
 }
-else
-{
-    console.log("Running in normal mode");
-    var privateKey  = fs.readFileSync('../certs/key.pem', 'utf8');
-    var certificate = fs.readFileSync('../certs/cert.pem', 'utf8');
-    var credentials = {key: privateKey, cert: certificate};
-    var httpsServer = https.createServer(credentials, app);
-    httpsServer.listen(443);
-}
 
-app.listen(port);
+start().catch((err) => {
+	console.error(err);
+	process.exit(1);
+});
 
 
