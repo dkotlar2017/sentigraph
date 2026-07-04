@@ -1,18 +1,30 @@
-// api.js — lightweight API-only server entry point
-'use strict';
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const https = require('https');
-const session = require('express-session');
-const MemcachedStore = require('connect-memcached')(session);
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import fs from 'fs';
+import https from 'https';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import session from 'express-session';
+import createMemcachedStore from 'connect-memcached';
+import * as capi from './controllers/api.mjs';
+
+/**
+ * Lightweight API-only server entry point.
+ *
+ * Exposes JSONP joy-distance simulation and OAuth token issuance routes.
+ */
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const MemcachedStore = createMemcachedStore(session);
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '/public'));
-app.use(cookieParser());
+const debug = false;
+let port = 8080;
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 app.use(session({
   secret: 'not the keyboard cat that you know',
   resave: false,
@@ -23,35 +35,37 @@ app.use(session({
   }),
 }));
 
-let port = 8080;
-const debug = false;
-
-// set the view engine to ejs
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname, 'views'));
 
-async function start() {
-  const capi = await import('./controllers/api.mjs');
-
+/** Register public API routes. */
+function registerRoutes() {
   app.get('/gi-sim', capi.getQ);
   app.get('/get-token', capi.oath_token);
+}
+
+/** Start the HTTPS listener used in production mode. */
+function startHttpsServer() {
+  const certDir = path.join(__dirname, '../certs');
+  const privateKey = fs.readFileSync(path.join(certDir, 'key.pem'), 'utf8');
+  const certificate = fs.readFileSync(path.join(certDir, 'cert.pem'), 'utf8');
+
+  // https.createServer({ key: privateKey, cert: certificate }, app).listen(443);
+}
+
+/** Boot the HTTP/HTTPS servers. */
+function start() {
+  registerRoutes();
 
   if (debug) {
     port = 8000;
     console.log('Running in debug mode');
   } else {
     console.log('Running in normal mode');
-    const privateKey = fs.readFileSync('../certs/key.pem', 'utf8');
-    const certificate = fs.readFileSync('../certs/cert.pem', 'utf8');
-    const credentials = { key: privateKey, cert: certificate };
-    const httpsServer = https.createServer(credentials, app);
-    // httpsServer.listen(443);
+    startHttpsServer();
   }
 
   app.listen(port);
 }
 
-start().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+start();

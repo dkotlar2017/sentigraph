@@ -1,6 +1,11 @@
 {
   "name": "sentigraph",
   "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "start": "node apps.js",
+    "start:api": "node api.js"
+  },
   "repository": {
     "type": "git",
     "url": ""
